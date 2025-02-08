@@ -3,7 +3,7 @@ Name: Xingchen Liu
 
 Github Account name: ivanlxc
 
-Link to Assignment on Github: (https://github.com/5004-SEA-Fa24-Geeng/payroll-gen-ivanlxc)
+Link to Assignment on Github: https://github.com/5004-SEA-Fa24-Geeng/payroll-gen-ivanlxc
 
 How many hours did it take you to complete this assignment (estimate)?
 
