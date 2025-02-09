@@ -164,6 +164,58 @@ You should feel free to number your brainstorm.
 
 
 
+
+1. Test that the `Employee` class properly returns `name` from `getName()`
+    - Create a `HourlyEmployee` instance and check if `getName()` returns the correct name.
+    - Create a `SalaryEmployee` instance and check if `getName()` returns the correct name.
+
+2. Test that the `Employee` class properly returns `id` from `getID()`
+    - Create a `HourlyEmployee` instance and check if `getID()` returns the correct ID.
+    - Create a `SalaryEmployee` instance and check if `getID()` returns the correct ID.
+
+3. Test that the `Employee` class properly returns `payRate` from `getPayRate()`
+    - `HourlyEmployee.getPayRate()` should return the correct pay rate.
+    - `SalaryEmployee.getPayRate()` should return the correct pay rate.
+
+4. Test that the `Employee` class properly returns `YTDEarnings` from `getYTDEarnings()`
+    - `HourlyEmployee.getYTDEarnings()` should return the correct year-to-date earnings.
+    - `SalaryEmployee.getYTDEarnings()` should return the correct year-to-date earnings.
+
+5. Test that the `Employee` class properly returns `YTDTaxesPaid` from `getYTDTaxesPaid()`
+    - `HourlyEmployee.getYTDTaxesPaid()` should return the correct year-to-date taxes paid.
+    - `SalaryEmployee.getYTDTaxesPaid()` should return the correct year-to-date taxes paid.
+
+6. Test that the `Employee` class properly returns `pretaxDeductions` from `getPretaxDeductions()`
+    - `HourlyEmployee.getPretaxDeductions()` should return the correct pre-tax deductions.
+    - `SalaryEmployee.getPretaxDeductions()` should return the correct pre-tax deductions.
+
+7. Test that the `HourlyEmployee` class properly returns `"HOURLY"` from `getEmployeeType()`
+8. Test that the `HourlyEmployee` class correctly calculates `runPayroll(40)` (no overtime)
+9. Test that the `HourlyEmployee` class correctly calculates `runPayroll(45)` (with overtime pay applied)
+
+
+10. Test that the `SalaryEmployee` class properly returns `"SALARY"` from `getEmployeeType()`
+11. Test that the `SalaryEmployee` class correctly calculates `runPayroll(0)` (fixed salary per pay period)
+
+
+12. Test that the `TimeCard` class properly returns `employeeID` from `getEmployeeID()`
+13. Test that the `TimeCard` class properly returns `hoursWorked` from `getHoursWorked()`
+
+14. Test that the `PayStub` class properly returns `pay` from `getPay()`
+15. Test that the `PayStub` class properly returns `taxesPaid` from `getTaxesPaid()`
+16. Test that the `PayStub` class correctly formats CSV output from `toCSV()`
+
+
+17. Test that the `Builder` class correctly parses `"HOURLY,John Doe,12345,15.00,100.0,1000.00,100.00"` into a `HourlyEmployee`
+18. Test that the `Builder` class correctly parses `"SALARY,Jane Doe,67890,50000.00,200.0,3000.00,500.00"` into a `SalaryEmployee`
+19. Test that the `Builder` class correctly parses `"12345,40"` into a `TimeCard`
+20. Test that the `Builder` class correctly parses `"67890,35"` into a `TimeCard`
+
+
+21. Test that the `PayrollGenerator.main()` reads `employees.csv` and `time_cards.csv` correctly
+22. Test that the `PayrollGenerator.main()` processes payroll and generates `pay_stubs.csv`
+23. Test that the `PayrollGenerator.main()` correctly updates `employees.csv` with new `YTDEarnings` values
+
 ## (FINAL DESIGN): Class Diagram
 
 Go through your completed code, and update your class diagram to reflect the final design. Make sure you check the file in the browser on github.com to make sure it is rendering correctly. It is normal that the two diagrams don't match! Rarely (though possible) is your initial design perfect. 
