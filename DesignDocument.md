@@ -10,95 +10,99 @@ Place your class diagram below. Make sure you check the fil in the browser on gi
 
 
 ```mermaid
-    classDiagram
-        IEmployee ..> IPayStub: "uses"
-    
-        Employee ..|> IEmployee : "implements"
-        PayStub ..|> IPayStub : "implements"
-        TimeCard ..|> ITimeCard : "implements"
+        classDiagram
+            IEmployee ..> IPayStub: "uses"
         
-        Employee <|-- SalaryEmployee
-        Employee <|-- HourlyEmployee
-    
-        Builder ..> IEmployee : "creates"
-        Builder ..> ITimeCard : "creates"
+            Employee ..|> IEmployee : "implements"
+            PayStub ..|> IPayStub : "implements"
+            TimeCard ..|> ITimeCard : "implements"
+            
+            Employee <|-- SalaryEmployee
+            Employee <|-- HourlyEmployee
         
-        PayrollGenerator ..> IEmployee : "uses"
-        PayrollGenerator ..> IPayStub : "uses"
-        PayrollGenerator ..> ITimeCard : "uses"
-        PayrollGenerator ..> FileUtil : "uses"
-        PayrollGenerator ..> Builder : "uses"
-        PayrollGenerator -- Argument : +Innerclass
-    
-        class IPayStub {
-            <<interface>>
-            +getPay(): double
-            +getTaxesPaid(): double
-            +toCSV(): String
-        }
+            Builder ..> IEmployee : "creates"
+            Builder ..> ITimeCard : "creates"
+            Builder ..> PayStub : "creates"  
+            
+            PayrollGenerator ..> IEmployee : "uses"  
+            PayrollGenerator ..> ITimeCard : "uses"
+            PayrollGenerator ..> FileUtil : "uses"
+            PayrollGenerator ..> Builder : "uses"
+            PayrollGenerator -- Argument : +Innerclass
         
-        class IEmployee {
-            <<interface>>
-            +getEmployeeType(): String
-            +getName(): String
-            +getID(): String
-            +getPayRate(): double
-            +getPretaxDeductions(): double
-            +getYTDEarnings(): double
-            +getYTDTaxesPaid(): double
-            +toCSV(): String
-            IPayStub runPayroll(double hoursWorked)
-        }
-    
-        class ITimeCard {
-            <<interface>>
-            +getEmployeeID() String
-            +getHoursWorked() double
-        }
+            Employee ..> PayStub : "uses"  
         
-        class Builder {
-            - Builder()
-            + IEmployee buildEmployeeFromCSV(String csv)
-            + ITimeCard buildTimeCardFromCSV(String csv)
-        }
-    
-        class Employee {
-            <<Abstract>>
-            - name: String
-            - id: String
-            - payRate: double
-            - pretaxDeductions: double
-            - ytdEarnings: double
-            - ytdTaxesPaid: double
-            + getName(): String
-            + getID(): String
-            + getPayRate(): double
-            + getYTDEarnings(): double
-            + getYTDTaxesPaid(): double
-            + getPretaxDeductions(): double
-            # calculateGrossPay(double hoursWorked)*: double
-            + runPayroll(double hoursWorked): IPayStub
-            + toCSV(): String
-        }
+            class IPayStub {
+                <<interface>>
+                +getPay(): double
+                +getTaxesPaid(): double
+                +toCSV(): String
+            }
+            
+            class IEmployee {
+                <<interface>>
+                +getEmployeeType(): String
+                +getName(): String
+                +getID(): String
+                +getPayRate(): double
+                +getPretaxDeductions(): double
+                +getYTDEarnings(): double
+                +getYTDTaxesPaid(): double
+                +toCSV(): String
+                IPayStub runPayroll(double hoursWorked)
+            }
         
-        class PayStub {
-            - employeeName: String
-            - grossPay: double
-            - netPay: double
-            - tax: double
-            - ytdEarnings: double
-            - ytdTaxesPaid: double
-            + getPay(): double
-            + getTaxesPaid(): double
-            + toCSV(): String
-        }
-    
-        class TimeCard {
-            - employeeID: String
-            - hoursWorked: double
-            + getEmployeeID(): String
-            + getHoursWorked(): double
-        }
+            class ITimeCard {
+                <<interface>>
+                +getEmployeeID() String
+                +getHoursWorked() double
+            }
+            
+            class Builder {
+                - Builder()
+                + IEmployee buildEmployeeFromCSV(String csv)
+                + ITimeCard buildTimeCardFromCSV(String csv)
+                + PayStub createPayStub(String employeeName, double pay, double taxesPaid, double ytdEarnings, double ytdTaxesPaid)  // ✅ 新增方法
+            }
+        
+            class Employee {
+                <<Abstract>>
+                - name: String
+                - id: String
+                - payRate: double
+                - pretaxDeductions: double
+                - ytdEarnings: double
+                - ytdTaxesPaid: double
+                + getName(): String
+                + getID(): String
+                + getPayRate(): double
+                + getYTDEarnings(): double
+                + getYTDTaxesPaid(): double
+                + getPretaxDeductions(): double
+                # calculateGrossPay(double hoursWorked)*: double
+                + runPayroll(double hoursWorked): IPayStub
+                + toCSV(): String
+            }
+            
+            class PayStub {
+                - employeeName: String
+                - grossPay: double
+                - netPay: double
+                - tax: double
+                - ytdEarnings: double
+                - ytdTaxesPaid: double
+                + getPay(): double
+                + getTaxesPaid(): double
+                + toCSV(): String
+            }
+        
+            class TimeCard {
+                - employeeID: String
+                - hoursWorked: double
+                + getEmployeeID(): String
+                + getHoursWorked(): double
+            }
+
 
 ```
 
