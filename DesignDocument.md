@@ -4,72 +4,101 @@
 This document is meant to provide a tool for you to demonstrate the design process. You need to work on this before you code, and after have a finished product. That way you can compare the changes, and changes in design are normal as you work through a project. It is contrary to popular belief, but we are not perfect our first attempt. We need to iterate on our designs to make them better. This document is a tool to help you do that.
 
 
-## (INITIAL DESIGN): Class Diagram≠
+## (INITIAL DESIGN): Class Diagram
 
 Place your class diagram below. Make sure you check the fil in the browser on github.com to make sure it is rendering correctly. If it is not, you will need to fix it. As a reminder, here is a link to tools that can help you create a class diagram: [Class Resources: Class Design Tools](https://github.com/CS5004-khoury-lionelle/Resources?tab=readme-ov-file#uml-design-tools)
 
 
 ```mermaid
-classDiagram
-    class iEmployee {
-        <<interface>>
-        + getName() : String
-        + getID() : String
-        + getPayRate() : double
-        + getEmployeeType() : String
-        + getYTDEarnings() : double
-        + getYTDTaxesPaid() : double
-        + getPretaxDeductions() : double
-        + runPayroll(double hoursWorked) : IPayStub 
-        + toCSV() : String
-    }
-
-    class IPayStub {
-        <<interface>>
-        + getPay() : double
-        + getTaxesPaid() : double
-        + toCSV() : String
-    }
-
-    class ITimeCard {
-        <<interface>>
-        + getEmployeeID() : String
-        + getHoursWorked() : double
-    }       
+    classDiagram
+        IEmployee ..> IPayStub: "uses"
     
-    class PayrollGenerator {
-        - DEFAULT_EMPLOYEE_FILE : String
-        - DEFAULT_PAYROLL_FILE : String
-        - DEFAULT_TIME_CARD_FILE : String
-        - PayrollGenerator()
-        + main(String[] args) : void
-    }
+        Employee ..|> IEmployee : "implements"
+        PayStub ..|> IPayStub : "implements"
+        TimeCard ..|> ITimeCard : "implements"
+        
+        Employee <|-- SalaryEmployee
+        Employee <|-- HourlyEmployee
     
-    class Arguments {
-        - employeeFile: String 
-        - payrollFile: String
-        - timeCards: String
-        + getEmployeeFile() : String
-        + getPayrollFile() : String
-        + getTimeCards() : String
-        + printHelp() : void
-        + process(String[] args) : Arguments
-    }
+        Builder ..> IEmployee : "creates"
+        Builder ..> ITimeCard : "creates"
+        
+        PayrollGenerator ..> IEmployee : "uses"
+        PayrollGenerator ..> IPayStub : "uses"
+        PayrollGenerator ..> ITimeCard : "uses"
+        PayrollGenerator ..> FileUtil : "uses"
+        PayrollGenerator ..> Builder : "uses"
+        PayrollGenerator -- Argument : +Innerclass
     
-    class Builder {
-        - Builder()
-        + buildEmployeeFromCSV(String csv) : IEmployee
-        + buildTimeCardFromCSV(String csv) : ITimeCard
-    }
+        class IPayStub {
+            <<interface>>
+            +getPay(): double
+            +getTaxesPaid(): double
+            +toCSV(): String
+        }
+        
+        class IEmployee {
+            <<interface>>
+            +getEmployeeType(): String
+            +getName(): String
+            +getID(): String
+            +getPayRate(): double
+            +getPretaxDeductions(): double
+            +getYTDEarnings(): double
+            +getYTDTaxesPaid(): double
+            +toCSV(): String
+            IPayStub runPayroll(double hoursWorked)
+        }
     
-    class FileUtil {
-        + EMPLOYEE_HEADER : String
-        + PAY_STUB_HEADER : String
-        - FileUtil()
-        + readFileToList(String file) : List<String>
-        + writeFile(String outFile, List<String> lines) : void
-        + writeFile(String outFile, List<String> lines, boolean backup) : void
-    }
+        class ITimeCard {
+            <<interface>>
+            +getEmployeeID() String
+            +getHoursWorked() double
+        }
+        
+        class Builder {
+            - Builder()
+            + IEmployee buildEmployeeFromCSV(String csv)
+            + ITimeCard buildTimeCardFromCSV(String csv)
+        }
+    
+        class Employee {
+            <<Abstract>>
+            - name: String
+            - id: String
+            - payRate: double
+            - pretaxDeductions: double
+            - ytdEarnings: double
+            - ytdTaxesPaid: double
+            + getName(): String
+            + getID(): String
+            + getPayRate(): double
+            + getYTDEarnings(): double
+            + getYTDTaxesPaid(): double
+            + getPretaxDeductions(): double
+            # calculateGrossPay(double hoursWorked)*: double
+            + runPayroll(double hoursWorked): IPayStub
+            + toCSV(): String
+        }
+        
+        class PayStub {
+            - employeeName: String
+            - grossPay: double
+            - netPay: double
+            - tax: double
+            - ytdEarnings: double
+            - ytdTaxesPaid: double
+            + getPay(): double
+            + getTaxesPaid(): double
+            + toCSV(): String
+        }
+    
+        class TimeCard {
+            - employeeID: String
+            - hoursWorked: double
+            + getEmployeeID(): String
+            + getHoursWorked(): double
+        }
 
 ```
 
@@ -114,3 +143,6 @@ Go through your completed code, and update your class diagram to reflect the fin
 > The value of reflective writing has been highly researched and documented within computer science, from learning new information to showing higher salaries in the workplace. For this next part, we encourage you to take time, and truly focus on your retrospective.
 
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
+
+
+
