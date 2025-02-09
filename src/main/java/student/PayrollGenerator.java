@@ -3,6 +3,14 @@ package student;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.LinkedList;
+import java.util.Optional;
+
+import student.IEmployee;
+import student.ITimeCard;
+import student.PayStub;
+import student.FileUtil;
+import student.Builder;
+
 
 /**
  * Main driver for the PayrollGenerator program.
@@ -69,9 +77,29 @@ public final class PayrollGenerator {
         // as it is invalid, but if is 0, you still generate a paystub, but the amount is 0.
 
         //YOUR CODE HERE
-      
+        for (ITimeCard timeCard : timeCardList) {
+            String employeeID = timeCard.getEmployeeID();
+            double hoursWorked = timeCard.getHoursWorked();
 
-         // now save out employees to a new file
+            if (hoursWorked < 0) {
+                System.out.println("Skipping invalid timecard for employee ID: " + employeeID);
+                continue; // 跳过不合法的输入
+            }
+
+            Optional<IEmployee> matchingEmployee = employees.stream()
+                    .filter(emp -> emp.getID().equals(employeeID))
+                    .findFirst();
+
+            if (matchingEmployee.isPresent()) {
+                IPayStub payStub = matchingEmployee.get().runPayroll(hoursWorked);
+                payStubs.add(payStub);
+            } else {
+                System.out.println("Employee not found for ID: " + employeeID);
+            }
+        }
+
+
+        // now save out employees to a new file
 
          employeeLines = employees.stream().map(IEmployee::toCSV).collect(Collectors.toList());
          employeeLines.add(0, FileUtil.EMPLOYEE_HEADER);

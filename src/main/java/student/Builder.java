@@ -22,8 +22,16 @@ public final class Builder {
      * @return the employee object
      */
     public static IEmployee buildEmployeeFromCSV(String csv) {
+        String[] parts = csv.split(",");
+        if (parts.length != 7) throw new IllegalArgumentException("Invalid Employee CSV format");
 
-        return null;
+        if (parts[0].equals("HOURLY")) {
+            return new HourlyEmployee(parts[1], parts[2], Double.parseDouble(parts[3]),
+                    Double.parseDouble(parts[4]), Double.parseDouble(parts[5]), Double.parseDouble(parts[6]));
+        } else {
+            return new SalaryEmployee(parts[1], parts[2], Double.parseDouble(parts[3]),
+                    Double.parseDouble(parts[4]), Double.parseDouble(parts[5]), Double.parseDouble(parts[6]));
+        }
     }
 
 
@@ -35,7 +43,9 @@ public final class Builder {
      * @return a TimeCard object
      */
     public static ITimeCard buildTimeCardFromCSV(String csv) {
-    
-        return null;
+        String[] parts = csv.split(",");
+        if (parts.length != 2) throw new IllegalArgumentException("Invalid TimeCard CSV format");
+
+        return new TimeCard(parts[0], Double.parseDouble(parts[1]));
     }
 }
