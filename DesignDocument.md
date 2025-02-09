@@ -156,15 +156,7 @@ Write a test (in english) that you can picture for the class diagram you have cr
 > 4. Refactor/update  as you go along
 > 5. Repeat steps 2-4 until you have all the tests passing/fully built program
 
-You should feel free to number your brainstorm. 
-
-1. Test that the `Employee` class properly returns `name` from `getName()`
-2. Test that the `Employee` class properly returns `id` from `getId()`
-3. continue to add your brainstorm here (you don't need to super formal - this is a brainstorm) - yes, you can change the bullets above to something that fits your design.
-
-
-
-
+You should feel free to number your brainstorm.
 1. Test that the `Employee` class properly returns `name` from `getName()`
     - Create a `HourlyEmployee` instance and check if `getName()` returns the correct name.
     - Create a `SalaryEmployee` instance and check if `getName()` returns the correct name.
