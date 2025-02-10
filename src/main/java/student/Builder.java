@@ -1,5 +1,6 @@
 package student;
 
+
 /** 
  * This is a static class (essentially functions) that will help you build objects from CSV strings.
  * These objects are then used in the rest of the program. Often these builders are associated
@@ -22,10 +23,25 @@ public final class Builder {
      * @return the employee object
      */
     public static IEmployee buildEmployeeFromCSV(String csv) {
+        String[] parts = csv.split(",");
+        if (parts.length != 7) throw new IllegalArgumentException("Invalid employee CSV format");
 
-        return null;
+        String type = parts[0];
+        String name = parts[1];
+        String id = parts[2];
+        double payRate = Double.parseDouble(parts[3]);
+        double pretaxDeductions = Double.parseDouble(parts[4]);
+        double ytdEarnings = Double.parseDouble(parts[5]);
+        double ytdTaxesPaid = Double.parseDouble(parts[6]);
+
+        if (type.equals("HOURLY")) {
+            return new HourlyEmployee(name, id, payRate, ytdEarnings, ytdTaxesPaid, pretaxDeductions);
+        } else if (type.equals("SALARY")) {
+            return new SalaryEmployee(name, id, payRate, ytdEarnings, ytdTaxesPaid, pretaxDeductions);
+        } else {
+            throw new IllegalArgumentException("Unknown employee type: " + type);
+        }
     }
-
 
 
    /**
@@ -35,7 +51,18 @@ public final class Builder {
      * @return a TimeCard object
      */
     public static ITimeCard buildTimeCardFromCSV(String csv) {
-    
-        return null;
+        String[] parts = csv.split(",");
+        if (parts.length != 2) throw new IllegalArgumentException("Invalid time card CSV format");
+
+        String employeeID = parts[0];
+        double hoursWorked;
+
+        try {
+            hoursWorked = Double.parseDouble(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid number format for hours worked");
+        }
+
+        return new TimeCard(employeeID, hoursWorked);
     }
 }
