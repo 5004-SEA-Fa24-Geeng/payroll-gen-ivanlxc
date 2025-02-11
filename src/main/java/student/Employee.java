@@ -81,7 +81,7 @@ public abstract class Employee implements IEmployee {
     @Override
     public String toCSV() {
         return getEmployeeType() + "," + getName() + "," + getID() + "," + getPayRate() + ","
-                + getPretaxDeductions() + "," + ytdEarnings + "," + ytdTaxesPaid;
+                + getPretaxDeductions() + "," + getYTDEarnings() + "," + getYTDTaxesPaid();
     }
 
     /**

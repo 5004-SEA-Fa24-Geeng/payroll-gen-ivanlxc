@@ -52,12 +52,10 @@ public class SalaryEmployee extends Employee {
 //        setYTDEarnings(newYTDEarnings);
 //        setYTDTaxesPaid(newYTDTaxesPaid);
 
-        if (hoursWorked > 0) {
-            double newYTDEarnings = roundToTwoDecimals(getYTDEarnings() + netPay);
-            double newYTDTaxesPaid = roundToTwoDecimals(getYTDTaxesPaid() + tax);
-            setYTDEarnings(newYTDEarnings);
-            setYTDTaxesPaid(newYTDTaxesPaid);
-        }
+        double newYTDEarnings = roundToTwoDecimals(getYTDEarnings() + netPay);
+        double newYTDTaxesPaid = roundToTwoDecimals(getYTDTaxesPaid() + tax);
+        setYTDEarnings(newYTDEarnings);
+        setYTDTaxesPaid(newYTDTaxesPaid);
 
         return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
                 getYTDEarnings(), getYTDTaxesPaid());
