@@ -50,10 +50,6 @@ public class HourlyEmployee extends Employee {
         double tax = roundToTwoDecimals(taxableIncome * taxRate);
         double netPay = roundToTwoDecimals(taxableIncome - tax);
 
-
-//        double ytdEarnings = getYTDEarnings();
-//        double ytdTaxesPaid = getYTDTaxesPaid();
-
         double previousYTDEarnings = getYTDEarnings();
         double previousYTDTaxesPaid = getYTDTaxesPaid();
 
