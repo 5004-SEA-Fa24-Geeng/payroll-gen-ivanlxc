@@ -51,23 +51,16 @@ public class HourlyEmployee extends Employee {
         double netPay = roundToTwoDecimals(taxableIncome - tax);
 
 
-//        double previousYTDEarnings = getYTDEarnings();
-//        double previousYTDTaxesPaid = getYTDTaxesPaid();
-//
-//        double newYTDEarnings = roundToTwoDecimals(previousYTDEarnings + netPay);
-//        double newYTDTaxesPaid = roundToTwoDecimals(previousYTDTaxesPaid + tax);
-//
-//        setYTDEarnings(newYTDEarnings);
-//        setYTDTaxesPaid(newYTDTaxesPaid);
+        double previousYTDEarnings = getYTDEarnings();
+        double previousYTDTaxesPaid = getYTDTaxesPaid();
 
-        double currentYTDEarnings = getYTDEarnings();
-        double currentYTDTaxesPaid = getYTDTaxesPaid();
+        double newYTDEarnings = roundToTwoDecimals(previousYTDEarnings + netPay);
+        double newYTDTaxesPaid = roundToTwoDecimals(previousYTDTaxesPaid + tax);
 
-//        setYTDEarnings(roundToTwoDecimals(currentYTDEarnings + netPay));
-//        setYTDTaxesPaid(roundToTwoDecimals(currentYTDTaxesPaid + tax));
-
+        setYTDEarnings(newYTDEarnings);
+        setYTDTaxesPaid(newYTDTaxesPaid);
 
         return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
-                roundToTwoDecimals(currentYTDEarnings), roundToTwoDecimals(currentYTDTaxesPaid));
+                newYTDEarnings, newYTDTaxesPaid);
     }
 }
