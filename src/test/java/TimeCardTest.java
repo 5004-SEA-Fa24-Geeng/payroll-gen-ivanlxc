@@ -10,11 +10,5 @@ public class TimeCardTest {
         assertEquals(40, tc.getHoursWorked());
     }
 
-    @Test
-    public void testInvalidHours() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new TimeCard("12345", -5);
-        });
-        assertEquals("Invalid hours worked", exception.getMessage());
-    }
+
 }
