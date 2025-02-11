@@ -42,9 +42,18 @@ public class SalaryEmployee extends Employee {
         double tax = roundToTwoDecimals(taxableIncome * taxRate);
         double netPay = roundToTwoDecimals(taxableIncome - tax);
 
-        double ytdEarnings = roundToTwoDecimals(getYTDEarnings() + netPay);
-        double ytdTaxesPaid = roundToTwoDecimals(getYTDTaxesPaid() + tax);
 
-        return new PayStub(getName(), netPay, tax, ytdEarnings, ytdTaxesPaid);
+        double previousYTDEarnings = getYTDEarnings();
+        double previousYTDTaxesPaid = getYTDTaxesPaid();
+
+        double newYTDEarnings = roundToTwoDecimals(previousYTDEarnings + netPay);
+        double newYTDTaxesPaid = roundToTwoDecimals(previousYTDTaxesPaid + tax);
+
+        setYTDEarnings(newYTDEarnings);
+        setYTDTaxesPaid(newYTDTaxesPaid);
+
+
+        return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
+                newYTDEarnings, newYTDTaxesPaid);
     }
 }

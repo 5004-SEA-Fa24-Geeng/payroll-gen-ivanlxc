@@ -47,6 +47,7 @@ public abstract class Employee implements IEmployee {
         this.ytdTaxesPaid = newTaxesPaid;
     }
 
+
     @Override
     public String getName() {
         return name;
@@ -80,7 +81,7 @@ public abstract class Employee implements IEmployee {
     @Override
     public String toCSV() {
         return getEmployeeType() + "," + getName() + "," + getID() + "," + getPayRate() + ","
-                + getPretaxDeductions() + "," + getYTDEarnings() + "," + getYTDTaxesPaid();
+                + getPretaxDeductions() + "," + ytdEarnings + "," + ytdTaxesPaid;
     }
 
     /**
