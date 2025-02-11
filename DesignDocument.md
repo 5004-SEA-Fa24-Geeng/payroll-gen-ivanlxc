@@ -363,14 +363,14 @@ Go through your completed code, and update your class diagram to reflect the fin
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
 
 The initial UML design provided a clear structure for the payroll system, but during implementation, I realized some adjustments were necessary. 
-For example, Builder was originally responsible for creating Employee, TimeCard, and PayStub. However, I found that PayStub should be generated within runPayroll(), 
-so I modified Builder to only handle CSV parsing for Employee and TimeCard.
+For example, `Builder` was originally responsible for creating `Employee`, `TimeCard`, and `PayStub`. However, I found that `PayStub` should be generated within `runPayroll()`, 
+so I modified `Builder` to only handle CSV parsing for `Employee` and `TimeCard`.
 
-Another key change was calculateGrossPay(double hoursWorked). Initially, this logic was inside runPayroll(), but since HourlyEmployee and SalaryEmployee calculate pay differently, 
-I extracted it as an abstract method in Employee and implemented it in each subclass. This made the code more structured and easier to maintain. 
+Another key change was `calculateGrossPay(double hoursWorked)`. Initially, this logic was inside `runPayroll()`, but since `HourlyEmployee` and `SalaryEmployee` calculate pay differently, 
+I extracted it as an `abstract` method in `Employee` and implemented it in each subclass. This made the code more structured and easier to maintain. 
 
 This process taught me that UML design is just a starting point and needs to evolve as the code takes shape. I realized the importance of keeping each class focused on a single 
-responsibility and structuring methods properly. If I were to do this again, I wouldd start with pseudocode to catch potential issues earlier. 
+responsibility and structuring methods properly. If I were to do this again, I would start with pseudocode to catch potential issues earlier. 
 The biggest challenge was making changes without overcomplicating the code, but in the end, the final design is much cleaner and easier to maintain.
 
 
