@@ -40,6 +40,9 @@ public class HourlyEmployee extends Employee {
 
     @Override
     public IPayStub runPayroll(double hoursWorked) {
+        if (hoursWorked < 0) {
+            return null;
+        }
 
         double grossPay = roundToTwoDecimals(calculateGrossPay(hoursWorked));
         double taxableIncome = grossPay - getPretaxDeductions();
@@ -47,12 +50,19 @@ public class HourlyEmployee extends Employee {
         double tax = roundToTwoDecimals(taxableIncome * taxRate);
         double netPay = roundToTwoDecimals(taxableIncome - tax);
 
-//        double newYTDEarnings = roundToTwoDecimals(getYTDEarnings() + netPay);
-//        double newYTDTaxesPaid = roundToTwoDecimals(getYTDTaxesPaid() + tax);
+
+        double ytdEarnings = getYTDEarnings();
+        double ytdTaxesPaid = getYTDTaxesPaid();
+
+//        double previousYTDEarnings = getYTDEarnings();
+//        double previousYTDTaxesPaid = getYTDTaxesPaid();
+//
+//        double newYTDEarnings = roundToTwoDecimals(previousYTDEarnings + netPay);
+//        double newYTDTaxesPaid = roundToTwoDecimals(previousYTDTaxesPaid + tax);
+//
 //        setYTDEarnings(newYTDEarnings);
 //        setYTDTaxesPaid(newYTDTaxesPaid);
 
-        return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
-                getYTDEarnings(), getYTDTaxesPaid());
+        return new PayStub(getName(), netPay, tax, roundToTwoDecimals(ytdEarnings), roundToTwoDecimals(ytdTaxesPaid));
     }
 }

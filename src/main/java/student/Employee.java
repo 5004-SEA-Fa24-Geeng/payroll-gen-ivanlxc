@@ -41,6 +41,7 @@ public abstract class Employee implements IEmployee {
 
     protected void setYTDEarnings(double newEarnings) {
         this.ytdEarnings = newEarnings;
+
     }
 
     protected void setYTDTaxesPaid(double newTaxesPaid) {

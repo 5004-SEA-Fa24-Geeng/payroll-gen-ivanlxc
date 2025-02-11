@@ -14,9 +14,7 @@ public class TimeCard implements ITimeCard {
      * @throws IllegalArgumentException If the hours worked is negative.
      */
     public TimeCard(String employeeID, double hoursWorked) {
-        if (hoursWorked < 0) {
-            throw new IllegalArgumentException("Invalid hours worked");
-        }
+
         this.employeeID = employeeID;
         this.hoursWorked = hoursWorked;
     }
