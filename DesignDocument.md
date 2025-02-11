@@ -214,130 +214,133 @@ Go through your completed code, and update your class diagram to reflect the fin
 
 ```mermaid
     classDiagram
-       class IEmployee {
-           <<interface>>
-           + getName() : String
-           + getID() : String
-           + getPayRate() : double
-           + getEmployeeType() : String
-           + getYTDEarnings() : double
-           + getYTDTaxesPaid() : double
-           + getPretaxDeductions() : double
-           + runPayroll(double hoursWorked) : IPayStub # may return null
-           + toCSV() : String
-       }
-   
-       class IPayStub {
-           <<interface>>
-           + getPay() : double
-           + getTaxesPaid() : double
-           + toCSV() : String
-       }
-   
-       class ITimeCard {
-           <<interface>>
-           + getEmployeeID() : String
-           + getHoursWorked() : double
-       }       
-   
-       Employee ..|> IEmployee : implements
-       PayStub ..|> IPayStub : implements
-       TimeCard ..|> ITimeCard : implements
-   
-       Employee <|-- SalaryEmployee
-       Employee <|-- HourlyEmployee
-   
-       PayrollGenerator ..> IEmployee : uses
-       PayrollGenerator ..> ITimeCard : uses
-       PayrollGenerator ..> FileUtil : uses
-       PayrollGenerator ..> Builder : uses
-   
-       Employee ..> PayStub : uses
-       Builder ..> IEmployee : creates
-       Builder ..> ITimeCard : creates
-   
-       class PayrollGenerator {
-           - DEFAULT_EMPLOYEE_FILE : String
-           - DEFAULT_PAYROLL_FILE : String
-           - DEFAULT_TIME_CARD_FILE : String
-           - PayrollGenerator()
-           + main(String[] args) : void
-   
-           class Arguments {
-               - employeeFile: String 
-               - payrollFile: String
-               - timeCards: String
-               + getEmployeeFile() : String
-               + getPayrollFile() : String
-               + getTimeCards() : String
-               + printHelp() : void
-               + static process(String[] args) : Arguments
-           }
-       }
-   
-       class Builder {
-           - Builder()
-           + buildEmployeeFromCSV(String csv) : IEmployee
-           + buildTimeCardFromCSV(String csv) : ITimeCard
-       }
-   
-       class FileUtil {
-           + EMPLOYEE_HEADER : String
-           + PAY_STUB_HEADER : String
-           - FileUtil()
-           + readFileToList(String file) : List<String>
-           + writeFile(String outFile, List<String> lines) : void
-           + writeFile(String outFile, List<String> lines, boolean backup) : void
-       }
-   
-       class Employee {
-           <<Abstract>>
-           - name: String
-           - id: String
-           - payRate: double
-           - pretaxDeductions: double
-           - ytdEarnings: double
-           - ytdTaxesPaid: double
-           + getName() : String
-           + getID() : String
-           + getPayRate() : double
-           + getYTDEarnings() : double
-           + getYTDTaxesPaid() : double
-           + getPretaxDeductions() : double
-           # calculateGrossPay(double hoursWorked)* : double
-           + runPayroll(double hoursWorked) : IPayStub
-           + toCSV() : String
-       }
-   
-       class HourlyEmployee {
-           + HourlyEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
-           + getEmployeeType() : String
-           # calculateGrossPay(double hoursWorked) : double
-       }
-   
-       class SalaryEmployee {
-           + SalaryEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
-           + getEmployeeType() : String
-           # calculateGrossPay(double hoursWorked) : double
-       }
-   
-       class PayStub {
-           - employeeName: String
-           - netPay: double
-           - tax: double
-           - ytdEarnings: double
-           - ytdTaxesPaid: double
-           + getPay() : double
-           + getTaxesPaid() : double
-           + toCSV() : String
-       }
-   
-       class TimeCard {
-           - employeeID: String
-           - hoursWorked: double
-           + getEmployeeID() : String
-           + getHoursWorked() : double
-       }
+    class IEmployee {
+        <<interface>>
+        + getName() : String
+        + getID() : String
+        + getPayRate() : double
+        + getEmployeeType() : String
+        + getYTDEarnings() : double
+        + getYTDTaxesPaid() : double
+        + getPretaxDeductions() : double
+        + runPayroll(double hoursWorked) : IPayStub # may return null
+        + toCSV() : String
+    }
+
+    class IPayStub {
+        <<interface>>
+        + getPay() : double
+        + getTaxesPaid() : double
+        + toCSV() : String
+    }
+
+    class ITimeCard {
+        <<interface>>
+        + getEmployeeID() : String
+        + getHoursWorked() : double
+    }       
+
+    Employee ..|> IEmployee : implements
+    PayStub ..|> IPayStub : implements
+    TimeCard ..|> ITimeCard : implements
+
+    Employee <|-- SalaryEmployee
+    Employee <|-- HourlyEmployee
+
+    PayrollGenerator ..> IEmployee : uses
+    PayrollGenerator ..> ITimeCard : uses
+    PayrollGenerator ..> FileUtil : uses
+    PayrollGenerator ..> Builder : uses
+    PayrollGenerator -- Arguments : Innerclass
+
+    Employee ..> PayStub : uses
+    Builder ..> IEmployee : creates
+    Builder ..> ITimeCard : creates
+
+    class PayrollGenerator {
+        - DEFAULT_EMPLOYEE_FILE : String
+        - DEFAULT_PAYROLL_FILE : String
+        - DEFAULT_TIME_CARD_FILE : String
+        - PayrollGenerator()
+        + main(String[] args) : void
+    }
+
+    class Arguments {
+        <<static class>>
+        - employeeFile: String 
+        - payrollFile: String
+        - timeCards: String
+        + getEmployeeFile() : String
+        + getPayrollFile() : String
+        + getTimeCards() : String
+        + printHelp() : void
+        + static process(String[] args) : Arguments
+    }
+
+    class Builder {
+        - Builder()
+        + buildEmployeeFromCSV(String csv) : IEmployee
+        + buildTimeCardFromCSV(String csv) : ITimeCard
+    }
+
+    class FileUtil {
+        + EMPLOYEE_HEADER : String
+        + PAY_STUB_HEADER : String
+        - FileUtil()
+        + readFileToList(String file) : List<String>
+        + writeFile(String outFile, List<String> lines) : void
+        + writeFile(String outFile, List<String> lines, boolean backup) : void
+    }
+
+    class Employee {
+        <<Abstract>>
+        - name: String
+        - id: String
+        - payRate: double
+        - pretaxDeductions: double
+        - ytdEarnings: double
+        - ytdTaxesPaid: double
+        + getName() : String
+        + getID() : String
+        + getPayRate() : double
+        + getYTDEarnings() : double
+        + getYTDTaxesPaid() : double
+        + getPretaxDeductions() : double
+        # calculateGrossPay(double hoursWorked)* : double
+        + runPayroll(double hoursWorked) : IPayStub
+        + toCSV() : String
+    }
+
+    class HourlyEmployee {
+        + HourlyEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
+        + getEmployeeType() : String
+        # calculateGrossPay(double hoursWorked) : double
+    }
+
+    class SalaryEmployee {
+        + SalaryEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
+        + getEmployeeType() : String
+        # calculateGrossPay(double hoursWorked) : double
+    }
+
+    class PayStub {
+        - employeeName: String
+        - netPay: double
+        - tax: double
+        - ytdEarnings: double
+        - ytdTaxesPaid: double
+        + getPay() : double
+        + getTaxesPaid() : double
+        + toCSV() : String
+    }
+
+    class TimeCard {
+        - employeeID: String
+        - hoursWorked: double
+        + getEmployeeID() : String
+        + getHoursWorked() : double
+    }
+
 
 
 
