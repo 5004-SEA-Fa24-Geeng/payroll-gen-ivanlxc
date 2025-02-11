@@ -47,13 +47,11 @@ public abstract class Employee implements IEmployee {
         return pretaxDeductions;
     }
 
-    // 🚀 关键修改：实现 toCSV() 方法，让所有子类继承
     @Override
     public String toCSV() {
         return getEmployeeType() + "," + name + "," + id + "," + payRate + "," + pretaxDeductions + "," + ytdEarnings + "," + ytdTaxesPaid;
     }
 
-    // 子类必须实现的方法
     public abstract String getEmployeeType();
     public abstract double calculateGrossPay(double hoursWorked);
     public abstract IPayStub runPayroll(double hoursWorked);
