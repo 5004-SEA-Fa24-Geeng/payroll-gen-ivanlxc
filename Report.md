@@ -56,3 +56,25 @@ Having heard these facts, your employer would like data about their salaries to 
 Think through the issue / making sure to cite any resources you use to help you better understand the topic. Then write a paragraph on what changes you would need to make to the system. For example, would there be any additional data points you would need to store in the employee file? Why? Consider what point in the payroll process you may want to look at the data, as different people could have different pretax benefits and highlight that. 
 
 The answer to this is mostly open. We ask that you cite at least two sources to show your understanding of the issue. The TAs will also give feedback on your answer, though will be liberal in grading as long as you show a good faith effort to understand the issue and making an effort to think about how your design to could help meet your employer's goals of salary equity. 
+
+
+Salary inequality is a persistent issue in the U.S. workforce, affecting various demographic groups, including women, racial minorities, and other underrepresented communities. 
+According to American Association of University Women, women with bachelor’s degrees working full time are paid 26% less than their male counterparts. And according to a report from McKinsey, *Diversity wins: How inclusion matters*, pay equity not only impacts employee satisfaction but also enhances company innovation and profitability.
+
+To resolve the ongoing disparities in salary, employer shall conduct thorough analysis directly through the payroll system.
+The current Employee records include basic salary details such as name, ID, payRate, and ytdEarnings. To analyze pay equity effectively, we may need the following additional data points.
+- **Gender**: To identify whether there are pay disparities based on gender.
+- **Race**: To identify whether there are pay disparities based on race.
+- **Age**: To identify whether there are pay disparities based on age.
+- **Job Level**: Ensures that salary comparisons are made within the same level, preventing misleading cross-level comparisons.
+- **Hire Date**: Helps evaluate whether tenure affects salary discrepancies and avoids misinterpretation due to different hiring periods.
+- **Department**: Since salary structures vary across departments, this helps control variables for a fair comparison.
+
+Moreover, when analyzing data related to payroll to identify potential disparities, we may also take pretax benefits into consideration, such as insurance, housing allowance, and other welfare.
+Those pretax benefits should be considered as part of the overall compensation, and should be properly documented as a separate data point in the payroll system.
+
+### Citations
+[Fast Facts: The Gender Pay Gap]https://www.aauw.org/resources/article/fast-facts-pay-gap/
+[Diversity wins: How inclusion matters]https://www.mckinsey.com/featured-insights/diversity-and-inclusion/diversity-wins-how-inclusion-matters
+
+
