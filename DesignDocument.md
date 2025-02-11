@@ -223,7 +223,7 @@ Go through your completed code, and update your class diagram to reflect the fin
            + getYTDEarnings() : double
            + getYTDTaxesPaid() : double
            + getPretaxDeductions() : double
-           + runPayroll(double hoursWorked) : IPayStub 
+           + runPayroll(double hoursWorked) : IPayStub # may return null
            + toCSV() : String
        }
    
@@ -251,12 +251,10 @@ Go through your completed code, and update your class diagram to reflect the fin
        PayrollGenerator ..> ITimeCard : uses
        PayrollGenerator ..> FileUtil : uses
        PayrollGenerator ..> Builder : uses
-       PayrollGenerator -- Arguments : contains
    
        Employee ..> PayStub : uses
        Builder ..> IEmployee : creates
        Builder ..> ITimeCard : creates
-       Builder ..> PayStub : creates
    
        class PayrollGenerator {
            - DEFAULT_EMPLOYEE_FILE : String
@@ -264,17 +262,17 @@ Go through your completed code, and update your class diagram to reflect the fin
            - DEFAULT_TIME_CARD_FILE : String
            - PayrollGenerator()
            + main(String[] args) : void
-       }
    
-       class Arguments {
-           - employeeFile: String 
-           - payrollFile: String
-           - timeCards: String
-           + getEmployeeFile() : String
-           + getPayrollFile() : String
-           + getTimeCards() : String
-           + printHelp() : void
-           + static process(String[] args) : Arguments
+           class Arguments {
+               - employeeFile: String 
+               - payrollFile: String
+               - timeCards: String
+               + getEmployeeFile() : String
+               + getPayrollFile() : String
+               + getTimeCards() : String
+               + printHelp() : void
+               + static process(String[] args) : Arguments
+           }
        }
    
        class Builder {
@@ -314,13 +312,13 @@ Go through your completed code, and update your class diagram to reflect the fin
        class HourlyEmployee {
            + HourlyEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
            + getEmployeeType() : String
-           + calculateGrossPay(double hoursWorked) : double
+           # calculateGrossPay(double hoursWorked) : double
        }
    
        class SalaryEmployee {
            + SalaryEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions)
            + getEmployeeType() : String
-           + calculateGrossPay(double hoursWorked) : double
+           # calculateGrossPay(double hoursWorked) : double
        }
    
        class PayStub {
@@ -340,6 +338,7 @@ Go through your completed code, and update your class diagram to reflect the fin
            + getEmployeeID() : String
            + getHoursWorked() : double
        }
+
 
 
 
