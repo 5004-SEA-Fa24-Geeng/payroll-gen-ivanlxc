@@ -54,6 +54,6 @@ public class SalaryEmployee extends Employee {
 
 
         return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
-                newYTDEarnings, newYTDTaxesPaid);
+                previousYTDEarnings, previousYTDTaxesPaid);
     }
 }
