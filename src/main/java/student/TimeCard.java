@@ -1,7 +1,7 @@
 package student;
 
 public class TimeCard implements ITimeCard {
-    /** The employee id number*/
+    /** The employee id number. */
     private String employeeID;
     /** The employee's worked hours. */
     private double hoursWorked;

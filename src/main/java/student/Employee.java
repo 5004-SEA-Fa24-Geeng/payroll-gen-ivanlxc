@@ -39,6 +39,14 @@ public abstract class Employee implements IEmployee {
         this.pretaxDeductions = pretaxDeductions;
     }
 
+    protected void setYTDEarnings(double newEarnings) {
+        this.ytdEarnings = newEarnings;
+    }
+
+    protected void setYTDTaxesPaid(double newTaxesPaid) {
+        this.ytdTaxesPaid = newTaxesPaid;
+    }
+
     @Override
     public String getName() {
         return name;
