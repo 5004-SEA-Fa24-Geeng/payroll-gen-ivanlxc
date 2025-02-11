@@ -63,6 +63,7 @@ public class HourlyEmployee extends Employee {
         setYTDEarnings(newYTDEarnings);
         setYTDTaxesPaid(newYTDTaxesPaid);
 
-        return new PayStub(getName(), netPay, tax, roundToTwoDecimals(getYTDEarnings()), roundToTwoDecimals(getYTDTaxesPaid()));
+        return new PayStub(getName(), netPay, tax,
+                roundToTwoDecimals(getYTDEarnings()), roundToTwoDecimals(getYTDTaxesPaid()));
     }
 }
