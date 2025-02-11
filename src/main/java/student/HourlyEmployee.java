@@ -43,23 +43,18 @@ public class HourlyEmployee extends Employee {
         if (hoursWorked < 0) {
             return null;
         }
-
         double grossPay = roundToTwoDecimals(calculateGrossPay(hoursWorked));
         double taxableIncome = grossPay - getPretaxDeductions();
         final double taxRate = 0.2265;     // the overall tax rate is 22.65% according to the IPayStub document
         double tax = roundToTwoDecimals(taxableIncome * taxRate);
         double netPay = roundToTwoDecimals(taxableIncome - tax);
 
-//        double previousYTDEarnings = getYTDEarnings();
-//        double previousYTDTaxesPaid = getYTDTaxesPaid();
-//
-//        double newYTDEarnings = roundToTwoDecimals(previousYTDEarnings + netPay);
-//        double newYTDTaxesPaid = roundToTwoDecimals(previousYTDTaxesPaid + tax);
-//
-//        setYTDEarnings(newYTDEarnings);
-//        setYTDTaxesPaid(newYTDTaxesPaid);
+        double newYTDEarnings = roundToTwoDecimals(getYTDEarnings() + netPay);
+        double newYTDTaxesPaid = roundToTwoDecimals(getYTDTaxesPaid() + tax);
+        setYTDEarnings(newYTDEarnings);
+        setYTDTaxesPaid(newYTDTaxesPaid);
 
         return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
-                roundToTwoDecimals(getYTDEarnings()), roundToTwoDecimals(getYTDTaxesPaid()));
+                getYTDEarnings(), getYTDTaxesPaid());
     }
 }

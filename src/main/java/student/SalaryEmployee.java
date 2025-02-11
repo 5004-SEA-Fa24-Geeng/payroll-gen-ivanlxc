@@ -36,7 +36,7 @@ public class SalaryEmployee extends Employee {
 
     @Override
     public IPayStub runPayroll(double hoursWorked) {
-        double grossPay = calculateGrossPay(0);
+        double grossPay = roundToTwoDecimals(calculateGrossPay(hoursWorked));
         double taxableIncome = grossPay - getPretaxDeductions();
         final double taxRate = 0.2265;     // the overall tax rate is 22.65% according to the IPayStub document
         double tax = roundToTwoDecimals(taxableIncome * taxRate);
@@ -54,6 +54,6 @@ public class SalaryEmployee extends Employee {
 
 
         return new PayStub(getName(), roundToTwoDecimals(netPay), roundToTwoDecimals(tax),
-                roundToTwoDecimals(getYTDEarnings()), roundToTwoDecimals(getYTDTaxesPaid()));
+                getYTDEarnings(), getYTDTaxesPaid());
     }
 }
